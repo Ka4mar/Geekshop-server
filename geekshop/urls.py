@@ -16,8 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from django.contrib import admin
-from django.urls import path
 
 from products.views import index, products
 
