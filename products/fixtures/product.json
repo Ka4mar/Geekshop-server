@@ -1,0 +1,38 @@
+[
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "name": "���� ������� ����� � ������������ adidas Originals",
+      "img": "products_images/Adidas-hoodie.png",
+      "description": "������ ����� ��� ���������. ����� � ������� � ��� ����� �����.",
+      "price": "6090.00",
+      "quantity": 20,
+      "category": 2
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "name": "����� ������ The North Face",
+      "img": "products_images/Blue-jacket-The-North-Face.png",
+      "description": "������� �����. ����������������� ��������. ������ � ������ ������� �����������.",
+      "price": "2372.00",
+      "quantity": 15,
+      "category": 2
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+      "name": "���������� ���������� oversized-��� ASOS DESIGN",
+      "img": "products_images/Brown-sports-oversized-top-ASOS-DESIGN.png",
+      "description": "�������� � �������� ���������. ������� � ������.",
+      "price": "3390.00",
+      "quantity": 30,
+      "category": 2
+    }
+  }
+]
