@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.urls import reverse
 
 from users.forms import UserLoginForm, UserRegistrationForm
@@ -26,18 +26,13 @@ def login(request):
 
 def registration(request):
     if request.method == 'POST':
-        print(request.POST)
         form = UserRegistrationForm(data=request.POST)
-        print(request.POST)
-        print(form.is_valid())
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('index'))
-        print(1234)
-
+            messages.success(request, 'Вы успешно зарегестрировались')
+            return HttpResponseRedirect(reverse('users:login'))
     else:
         form = UserRegistrationForm()
-        print(987)
     context = {'title': 'GeekShop - Регистрация', 'form': form}
     return render(request, 'users/registration.html', context)
 
