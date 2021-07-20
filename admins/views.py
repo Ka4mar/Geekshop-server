@@ -3,6 +3,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.utils.decorators import method_decorator
 
 from users.models import User
 from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm
@@ -23,6 +24,10 @@ class UserListView(ListView):
         context['title'] = 'Админ-панель - Пользователи'
         return context
 
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserListView, self).dispatch(request, *args, **kwargs)
+
 
 class UserCreateView(CreateView):
     model = User
@@ -34,6 +39,10 @@ class UserCreateView(CreateView):
         context = super(UserCreateView, self).get_context_data(object_list=None, **kwargs)
         context['title'] = 'Админ - панель - Создание пользователя'
         return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserCreateView, self).dispatch(request, *args, **kwargs)
 
 
 class UserUpdateView(UpdateView):
@@ -47,6 +56,10 @@ class UserUpdateView(UpdateView):
         context['title'] = 'Админ-панель - Редактирование пользователя'
         return context
 
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserUpdateView, self).dispatch(request, *args, **kwargs)
+
 
 class UserDeleteView(DeleteView):
     model = User
@@ -58,6 +71,9 @@ class UserDeleteView(DeleteView):
         self.object.safe_delete()
         return HttpResponseRedirect(self.get_success_url())
 
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserDeleteView, self).dispatch(request, *args, **kwargs)
 
 # @user_passes_test(lambda u: u.is_staff)
 # def admin_users_remove(request, pk):
