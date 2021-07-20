@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from users.models import User
 from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm
@@ -17,6 +17,11 @@ def index(request):
 class UserListView(ListView):
     model = User
     template_name = 'admins/admin-users-read.html'
+    
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserListView, self).get_context_data(object_list=None, **kwargs)
+        context['title'] = 'Админ-панель - Пользователи'
+        return context
 
 
 class UserCreateView(CreateView):
@@ -25,6 +30,11 @@ class UserCreateView(CreateView):
     template_name = 'admins/admin-users-create.html'
     success_url = reverse_lazy('admins:admin_users')
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserCreateView, self).get_context_data(object_list=None, **kwargs)
+        context['title'] = 'Админ - панель - Создание пользователя'
+        return context
+
 
 class UserUpdateView(UpdateView):
     model = User
@@ -32,13 +42,29 @@ class UserUpdateView(UpdateView):
     template_name = 'admins/admin-users-update-delete.html'
     success_url = reverse_lazy('admins:admin_users')
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserUpdateView, self).get_context_data(object_list=None, **kwargs)
+        context['title'] = 'Админ-панель - Редактирование пользователя'
+        return context
 
-@user_passes_test(lambda u: u.is_staff)
-def admin_users_remove(request, pk):
-    user = User.objects.get(id=pk)
-    user.is_active = False
-    user.save()
-    return HttpResponseRedirect(reverse('admins:admin_users'))
+
+class UserDeleteView(DeleteView):
+    model = User
+    template_name = 'admins/admin-users-update-delete.html'
+    success_url = reverse_lazy('admins:admin_users')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.safe_delete()
+        return HttpResponseRedirect(self.get_success_url())
+
+
+# @user_passes_test(lambda u: u.is_staff)
+# def admin_users_remove(request, pk):
+#     user = User.objects.get(id=pk)
+#     user.is_active = False
+#     user.save()
+#     return HttpResponseRedirect(reverse('admins:admin_users'))
 
 
 #  @user_passes_test(lambda u: u.is_staff)
