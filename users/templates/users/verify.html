@@ -1,0 +1,14 @@
+{%  extends 'users/base.html' %}
+{% block content %}
+    <div class="row">
+        {% if user.is_authenticated %}
+            <h3>Поздравляем! </h3>
+            <div>Пользователь {{ user.email }} успешно активирован!</div>
+        {% else %}
+            <h3>Не Поздравляем! </h3>
+            <div>Пользователь не удалось активировать :'(</div>
+        {% endif %}
+        <a href="{% url 'index'%}" class="btn btn-primary">На главную страницу!</a>
+    </div>
+{% endblock %}
+
