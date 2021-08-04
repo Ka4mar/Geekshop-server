@@ -7,7 +7,7 @@ import pytz
 
 class User(AbstractUser):
     image = models.ImageField(upload_to='users_images', blank=True)
-
+    age = models.PositiveIntegerField(verbose_name='возраст', default=18)
     activation_key = models.CharField(max_length=128, blank=True)
     activation_key_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 

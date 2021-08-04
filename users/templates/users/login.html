@@ -48,6 +48,11 @@
                             <div class="card-footer text-center">
                                 <div class="small"><a href="{% url 'users:registration' %}">Нужен аккаунт? Зарегистрируйся!</a></div>
                             </div>
+                            <button class="btn ">
+                                <a href="{% url 'social:begin' 'vk-oauth2' %}?next=/">
+                                    вход через ВК
+                                </a>
+                            </button>
                         </div>
                     </div>
                 </div>
