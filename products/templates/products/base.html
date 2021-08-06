@@ -40,7 +40,7 @@
                 </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:profile' %}">{{ user.username }}
+                        <a class="nav-link" href="{% url 'users:profile' %}">{{ user.first_name }}
                             <i class="fas fa-user-circle"></i>
                         </a>
                     </li>
@@ -61,9 +61,9 @@
                 {% endif %}
 
 
-                <li class="nav-item">
+               <!-- <li class="nav-item">
                     <span class="nav-link">Дата: {{ date| date:'d/n/o' }}</span>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <span class="nav-link">{{ basket.0.total_sum }} руб. ({{ basket.0.total_quantity }}) шт</span>
                 </li>

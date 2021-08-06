@@ -3,7 +3,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.conf import settings
-from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm, UserProfileEdit
 from baskets.models import Basket
 from django.core.mail import send_mail
 from users.models import User
@@ -57,15 +57,18 @@ def profile(request):
     user = request.user
     if request.method == 'POST':
         form = UserProfileForm(instance=user, files=request.FILES, data=request.POST)
-        if form.is_valid():
+        profile_form = UserProfileEdit(request.POST, instance=request.user.userprofile)
+        if form.is_valid() and profile_form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('users:profile'))
     else:
         form = UserProfileForm(instance=user)
+        profile_form = UserProfileEdit(instance=request.user.userprofile)
     context = {
         'title': 'GeekShop - Личный кабинет',
         'form': form,
         'baskets': Basket.objects.filter(user=user),
+        'profile_form': profile_form,
     }
     return render(request, 'users/profile.html', context)
 
@@ -78,6 +81,7 @@ def verify(request, email, activation_key):
             user.save()
             auth.login(request, user)
         return render(request, 'users/verify.html')
+
     return HttpResponseRedirect(reverse('index'))
 
 
