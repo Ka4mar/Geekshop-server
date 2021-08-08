@@ -1,8 +1,9 @@
 from django.db import transaction
 from django.forms import inlineformset_factory
-from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from baskets.models import Basket
 from ordersapp.forms import OrderItemForm
@@ -53,3 +54,54 @@ class OrderItemCreate(CreateView):
                 orderitems.save()
 
         return super().form_valid(form)
+
+
+class OrderItemUpdate(UpdateView):
+    model = Order
+    fields = []
+    success_url = reverse_lazy('ordersapp:order_list')
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        OrderFormset = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1)
+
+        if self.request.method == 'POST':
+            formset = OrderFormset(self.request.POST, instance=self.object)
+        else:
+            formset = OrderFormset(instance=self.object)
+
+        data['orderitems'] = formset
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        orderitems = context['orderitems']
+
+        with transaction.atomic():
+            form.instance.user = self.request.user
+            self.object = form.save()
+            if orderitems.is_valid():
+                orderitems.instance = self.object
+                orderitems.save()
+
+        return super().form_valid(form)
+
+
+class OrderItemDelete(DeleteView):
+    model = Order
+    success_url = reverse_lazy('ordersapp:order_list')
+
+
+class OrderItemRead(DetailView):
+    model = Order
+
+
+def order_forming_complete(request, pk):
+    print(1)
+    order_item = get_object_or_404(Order, pk=pk)
+    order_item.status = Order.SENT_TO_PROCEED
+    print(1)
+    print(order_item.status)
+    order_item.save()
+
+    return HttpResponseRedirect(reverse('ordersapp:order_list'))
