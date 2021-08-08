@@ -10,9 +10,9 @@
     <meta name="author" content=""/>
     <title>{{ title }}</title>
     <link href="{% static 'css/auth-admin.css' %}" rel="stylesheet"/>
-    <link href="{% static 'css/bootstrap4.min.css' %}" rel="stylesheet"
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
           crossorigin="anonymous"/>
-    <script src="{% static 'fonts/font-awesome/5.15.1/js/all.min.js' %}"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
             crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
@@ -46,6 +46,34 @@
     </ul>
 </nav>
 <div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Приложения</div>
+                    <a class="nav-link" href="{% url 'admins:admin_users' %}">
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        Пользователи
+                    </a>
+                    <a class="nav-link" href="index.html">
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-shopping-basket"></i>
+                        </div>
+                        Категории
+                    </a>
+                    <a class="nav-link" href="index.html">
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        Продукты
+                    </a>
+                </div>
+            </div>
+            <div class="sb-sidenav-footer"></div>
+        </nav>
+    </div>
     <div id="layoutSidenav_content">
         {% block content %}
 
