@@ -47,6 +47,7 @@ class OrderItemCreate(CreateView):
         orderitems = context['orderitems']
 
         with transaction.atomic():
+            Basket.objects.filter(user=self.request.user).delete()
             form.instance.user = self.request.user
             self.object = form.save()
             if orderitems.is_valid():
@@ -97,11 +98,8 @@ class OrderItemRead(DetailView):
 
 
 def order_forming_complete(request, pk):
-    print(1)
     order_item = get_object_or_404(Order, pk=pk)
     order_item.status = Order.SENT_TO_PROCEED
-    print(1)
-    print(order_item.status)
     order_item.save()
 
     return HttpResponseRedirect(reverse('ordersapp:order_list'))
