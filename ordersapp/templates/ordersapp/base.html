@@ -34,6 +34,7 @@
     <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item">
             <span class="nav-link">{{ basket.0.total_sum }} руб. ({{ basket.0.total_quantity }}) шт</span>
+
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
@@ -67,5 +68,6 @@
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 <script src="{% static 'js/datatable.js' %}"></script>
+<script src="{% static 'js/orders_scripts.js' %}"></script>
 </body>
 </html>
