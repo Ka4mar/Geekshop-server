@@ -248,4 +248,4 @@
         hideLastAddForm: false           // When set to true, hide last empty add form (becomes visible when clicking on add button)
     };
 })(jQuery);
-console.log(1)
+

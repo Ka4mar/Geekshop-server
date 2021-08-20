@@ -1,0 +1,6 @@
+django
+python-dotenv==0.10.5
+psycopg2-binary
+requests
+pillow
+social_auth_app_django
