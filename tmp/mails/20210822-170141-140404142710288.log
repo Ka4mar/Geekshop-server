@@ -1,0 +1,12 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Verify your account
+From: django@gb.local
+To: asdfg@mail.ru
+Date: Sun, 22 Aug 2021 17:01:41 -0000
+Message-ID: 
+ <162965170110.25786.17766854952596276881@151-248-112-212.cloudvps.regruhosting.ru>
+
+http://localhost:8000/users/verify/asdfg@mail.ru/ca164a5d97cae0658d32b21ac6dce586e6f9f9c9/
+-------------------------------------------------------------------------------

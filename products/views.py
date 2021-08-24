@@ -25,7 +25,7 @@ def products(request, category_id=None, page=1):
 
     context = {'title': 'GeekShop - Каталог', 'categories': ProductCategory.objects.all()}
     if category_id:
-        products = Product.objects.filter(category_id=category_id)
+        products = Product.objects.filter(category_id=category_id).select_related()
     else:
         products = Product.objects.all()
     paginator = Paginator(products, 3)

@@ -1,0 +1,12 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Verify your account
+From: django@gb.local
+To: berserk_ka4mar@outlook.com
+Date: Sun, 22 Aug 2021 16:55:41 -0000
+Message-ID: 
+ <162965134183.25787.2641856191730049963@151-248-112-212.cloudvps.regruhosting.ru>
+
+http://localhost:8000/users/verify/berserk_ka4mar@outlook.com/9ff4adb77bf10377623687f0a09f4c1b9bf5f355/
+-------------------------------------------------------------------------------
